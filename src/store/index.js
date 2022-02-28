@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     code: '',
+    Coords:'',
     trip: '',
     trip_object: null,
     trips_on_route: [],
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     setAddress(state, address) {
       state.address = address
     },
+    setCoords(state, Coords) {
+      state.Coords = Coords
+    },
     setModes(state, modes) {
       state.modes = modes
     },
@@ -66,6 +70,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    updateCoords({ commit }, Coords) {
+      commit('setCoords', Coords)
+      if (code.length === 4) {
+        this.dispatch("fetchCoords", Coords);//%%
+      } 
+    },
     updateCode({ commit }, code) {
       commit('setCode', code)
       if (code.length === 4) {
@@ -198,6 +208,20 @@ export default new Vuex.Store({
           commit("setAddress", "Não encontrado");
         });
     },
+
+    fetchCoords({ commit }, Coords) {//%%%
+      axios
+        .get(
+          `https://api.mobilidade.rio/qrcode/?code=` + code
+        )
+        .then(({ data }) => {
+          commit("setCoords", [data.results[0].stop.latitude,data.results[0].stop.longitude]);
+        })
+        .catch(() => {
+          commit("setCoords", "Não encontrado");
+        });
+    },
+
     fetchModes({ commit }, code) {
       function getModes(url) {
         axios

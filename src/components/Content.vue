@@ -8,6 +8,8 @@
               <SearchStop />
               <QrCode v-if="read_qrcode" />
               <Separator />
+              <Mapa />
+              <Separator />
               <Location />
               <TripsList />
               <TripDetails />
@@ -22,6 +24,7 @@
 <script>
 import SearchStop from "./SearchStop.vue";
 import QrCode from "./QrCode.vue";
+import Mapa from "./Mapa.vue";
 import Separator from "./Separator.vue";
 import Location from "./Location.vue";
 import TripsList from "./TripsList.vue";
@@ -33,6 +36,7 @@ export default {
   components: {
     SearchStop,
     QrCode,
+    Mapa,
     Separator,
     Location,
     TripsList,

@@ -13,6 +13,16 @@ Vue.mixin(titleMixin)
 import './assets/css/custom.css'
 import './assets/css/styles.css'
 
+
+//leaflet
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import 'leaflet/dist/leaflet.css';
+
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
+
+
 // FontAwesome
 import './assets/vendor/fontawesome-free-5.15.3-web/css/all.css'
 import './assets/vendor/fontawesome-free-5.15.3-web/js/all.min.js'
@@ -40,6 +50,9 @@ new Vue({
         this.$store.dispatch("clearStops");
       }
       if (trip) {
+        this.$store.dispatch("updateTrip", trip);
+      }
+      if (mapa) {
         this.$store.dispatch("updateTrip", trip);
       }
       if (route === "/qrcode") {
